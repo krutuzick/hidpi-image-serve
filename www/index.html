@@ -2,48 +2,85 @@
 <html>
 <head>
     <title>HIDPI images approach</title>
+    <script type="text/javascript" charset="utf-8">
+        // Setting up cookie by JavaScript if browser does not support "min-device-pixel-ratio" css property
+        if (!document.cookie.match(/\bdevice-pixel-ratio=/)) {
+            document.cookie = 'device-pixel-ratio=' + (window.devicePixelRatio > 1 ? '2' : '1') + '; path=/';
+        }
+    </script>
+    <style type="text/css">
+        /* Setting up cookie by css hack if JavaScript is disabled in browser */
+        @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+
+            /* Set device-pixel-ratio cookie: head tag is invisible but request is still sent */
+            head {
+                background-image: url(/set-device-pixel-ratio/2);
+            }
+
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid gray;
+        }
+
+        table td, table th {
+            border: 1px solid gray;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        
+        .background-img {
+            width: 160px;
+            height: 100px;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+    </style>
 </head>
 <body>
-    <h1>HIDPI images approach</h1>
-    <p>This page demonstrates approach to serve images to HIDPI (Retina) screens in website.</p>
-    <p>Based on this article: <a href="http://oliverspindler.com/articles/2012/04/05/conditionally-serving-high-resolution-images/" target="_blank">http://oliverspindler.com/articles/2012/04/05/conditionally-serving-high-resolution-images/</a></p>
-    <hr />
-    <h2>IMG tag</h2>
-    <table>
-        <tr>
-            <th></th>
-            <th>HIDPI image</th>
-            <th>Regular thumbed image</th>
-        </tr>
-        <tr>
-            <td>Image without size limitation</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>200x200 image</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-    <hr />
-    <h2>Background-image</h2>
-    <table>
-        <tr>
-            <th></th>
-            <th>HIDPI image</th>
-            <th>Regular thumbed image</th>
-        </tr>
-        <tr>
-            <td>Image without size limitation</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>200x200 image</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+
+<h1>HIDPI images approach</h1>
+<p>This page demonstrates approach how to serve images for HIDPI (Retina) screens in a website.</p>
+<p>To see effect on regular screen - clear cookies, reload and zoom in the page.</p>
+<p>Based on this article: <a href="http://oliverspindler.com/articles/2012/04/05/conditionally-serving-high-resolution-images/" target="_blank">http://oliverspindler.com/articles/2012/04/05/conditionally-serving-high-resolution-images/</a></p>
+
+<h2>IMG tag</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>HIDPI image</th>
+        <th>Regular thumbed image</th>
+    </tr>
+    <tr>
+        <td>Image without size limitation</td>
+        <td><img src="media/tiger.jpg"></td>
+        <td><img src="media/tiger-no-hidpi.jpg"></td>
+    </tr>
+    <tr>
+        <td>160x100 image</td>
+        <td><img src="media/tiger.jpg" width="160" height="100"></td>
+        <td><img src="media/tiger-no-hidpi.jpg" width="160" height="100"></td>
+    </tr>
+</table>
+
+<h2>Background-image</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>HIDPI image</th>
+        <th>Regular thumbed image</th>
+    </tr>
+    <tr>
+        <td>160x100 div</td>
+        <td><div class="background-img" style="background-image: url(/media/tiger.jpg);">&nbsp;</div></td>
+        <td><div class="background-img" style="background-image: url(/media/tiger-no-hidpi.jpg);">&nbsp;</div></td>
+    </tr>
+</table>
+
 </body>
 </html>
